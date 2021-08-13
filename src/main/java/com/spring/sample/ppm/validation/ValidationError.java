@@ -3,6 +3,7 @@ package com.spring.sample.ppm.validation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
@@ -13,13 +14,13 @@ import java.util.Map;
 public class ValidationError {
 
 	public ResponseEntity<Object> mapValidationService(BindingResult result) {
-		Map<String, String> errors = null;
 		if (result.hasErrors()) {
-			errors = new HashMap<>();
+			Map<String, String> errors = new HashMap<>();
 			for (FieldError err : result.getFieldErrors()) {
 				errors.put(err.getField(), err.getDefaultMessage());
 			}
+			return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+		return null;
 	}
 }
