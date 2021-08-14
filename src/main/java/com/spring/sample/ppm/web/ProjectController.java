@@ -56,4 +56,14 @@ public class ProjectController {
 		return new ResponseEntity<>("Project ID: " + projectId.toUpperCase() + " has been deleted!", HttpStatus.OK);
 	}
 
+	@PutMapping("")
+	public ResponseEntity<?> updateProjectByIdentifier(@Valid @RequestBody Project project, BindingResult result) {
+		ResponseEntity<?> errors = validationError.mapValidationService(result);
+		if (Objects.nonNull(errors)) {
+			return errors;
+		}
+		Project updatedProject = projectService.updateProject(project);
+		return new ResponseEntity<>(updatedProject, HttpStatus.CREATED);
+	}
+
 }

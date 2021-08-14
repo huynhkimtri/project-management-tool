@@ -68,4 +68,19 @@ public class ProjectService {
 		projectRepository.delete(project);
 	}
 
+	/**
+	 * Updated an existed project
+	 *
+	 * @param project the request project to update
+	 * @return the updated project
+	 */
+	public Project updateProject(Project project) {
+		Project currentProject = this.findByProjectId(project.getProjectIdentifier().toUpperCase());
+		currentProject.setProjectName(project.getProjectName());
+		currentProject.setDescription(project.getDescription());
+		currentProject.setStartDate(project.getStartDate());
+		currentProject.setEndDate(project.getEndDate());
+		return projectRepository.save(currentProject);
+	}
+
 }

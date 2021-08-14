@@ -1,6 +1,7 @@
 package com.spring.sample.ppm.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.spring.sample.ppm.constants.AppConst;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,16 +30,16 @@ public class Project {
 	@NotBlank(message = "Project description is required")
 	private String description;
 
-	@JsonFormat(pattern = "yyyy-mm-dd")
+	@JsonFormat(pattern = AppConst.DATE_TIME_FORMAT)
 	private Date startDate;
 
-	@JsonFormat(pattern = "yyyy-mm-dd")
+	@JsonFormat(pattern = AppConst.DATE_TIME_FORMAT)
 	private Date endDate;
 
-	@JsonFormat(pattern = "yyyy-mm-dd")
+	@JsonFormat(pattern = AppConst.DATE_TIME_FORMAT)
 	private Date createdAt;
 
-	@JsonFormat(pattern = "yyyy-mm-dd")
+	@JsonFormat(pattern = AppConst.DATE_TIME_FORMAT)
 	private Date updatedAt;
 
 	public Project() {
