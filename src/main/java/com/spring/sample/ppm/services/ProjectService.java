@@ -52,4 +52,20 @@ public class ProjectService {
 		return projectRepository.findAll();
 	}
 
+
+	/**
+	 * Deletes the project with the given project identifier.
+	 *
+	 * @param projectId must not be {@literal null}.
+	 * @throws IllegalArgumentException in case the given {@literal id} is {@literal null}
+	 */
+	public void deleteProjectByIdentifier(String projectId) {
+		Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+		if (project == null) {
+			String message = "Project ID: " + projectId.toUpperCase() + " does not exist!";
+			throw new ProjectIdentifierException(message);
+		}
+		projectRepository.delete(project);
+	}
+
 }
