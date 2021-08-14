@@ -12,31 +12,44 @@ public class ProjectService {
 	@Autowired
 	private ProjectRepository projectRepository;
 
+	/**
+	 * Save a new project or updated an existed project
+	 *
+	 * @param project the request project
+	 * @return the new or updated project
+	 */
 	public Project saveOrUpdateProject(Project project) {
 		try {
 			project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
 			return projectRepository.save(project);
 		} catch (Exception ex) {
-			String message = new StringBuilder()
-					.append("Project ID: ")
-					.append(project.getProjectIdentifier())
-					.append(" already existed!")
-					.toString();
+			String message = "Project ID: " + project.getProjectIdentifier().toUpperCase() + " already existed!";
 			throw new ProjectIdentifierException(message);
 		}
 	}
 
+	/**
+	 * Retrieves a project by its identifier
+	 *
+	 * @param projectId the project identifier
+	 * @return the project
+	 */
 	public Project findByProjectId(String projectId) {
-		Project project = projectRepository.findByProjectIdentifier(projectId);
+		Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
 		if (project == null) {
-			String message = new StringBuilder()
-					.append("Project ID: ")
-					.append(projectId.toUpperCase())
-					.append(" does not exist!")
-					.toString();
+			String message = "Project ID: " + projectId.toUpperCase() + " does not exist!";
 			throw new ProjectIdentifierException(message);
 		}
 		return project;
+	}
+
+	/**
+	 * Returns all instances of the project.
+	 *
+	 * @return all projects
+	 */
+	public Iterable<Project> findAllProjects() {
+		return projectRepository.findAll();
 	}
 
 }
